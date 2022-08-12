@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.dao.exception_handling;
+package com.example.arrestmanagement.exception_handling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

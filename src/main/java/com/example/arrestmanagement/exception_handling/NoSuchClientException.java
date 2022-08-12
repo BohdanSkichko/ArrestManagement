@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.dao.exception_handling;
+package com.example.arrestmanagement.exception_handling;
 
 public class NoSuchClientException extends RuntimeException{
 

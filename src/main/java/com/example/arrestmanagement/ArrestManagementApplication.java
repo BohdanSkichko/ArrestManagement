@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ArrestManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ArrestManagementApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ArrestManagementApplication.class, args);
+    }
 
 }
