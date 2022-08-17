@@ -2,7 +2,7 @@ package com.example.arrestmanagement.controller;
 
 import com.example.arrestmanagement.exception_handling.ClientIncorrectException;
 import com.example.arrestmanagement.exception_handling.NoSuchClientException;
-import com.example.arrestmanagement.model.Client;
+import com.example.arrestmanagement.entity.Client;
 import com.example.arrestmanagement.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

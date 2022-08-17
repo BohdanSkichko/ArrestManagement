@@ -1,11 +1,12 @@
 package com.example.arrestmanagement.service.impl;
 
-import com.example.arrestmanagement.model.Arrest;
-import com.example.arrestmanagement.model.Client;
+import com.example.arrestmanagement.dto.ArrestRequest;
+import com.example.arrestmanagement.entity.Arrest;
 import com.example.arrestmanagement.repository.ArrestRepository;
 import com.example.arrestmanagement.service.ArrestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -17,6 +18,12 @@ public class ArrestServiceImpl implements ArrestService {
 
     public ArrestServiceImpl(ArrestRepository arrestRepository) {
         this.arrestRepository = arrestRepository;
+    }
+
+
+    @Override
+    public Arrest save(ArrestRequest arrestRequest) {
+        return arrestRepository.save(arrestRequest);
     }
 
     @Override

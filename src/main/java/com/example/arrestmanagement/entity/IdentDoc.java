@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.model;
+package com.example.arrestmanagement.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
 @Getter
@@ -26,8 +25,6 @@ public class IdentDoc {
     private int id;
 
 
-    @Min(1)
-    @Max(2)
     @Column(name = "type")
     private int type;
 

@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.model;
+package com.example.arrestmanagement.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -6,9 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import java.sql.Date;
 
 @Getter
 @Setter

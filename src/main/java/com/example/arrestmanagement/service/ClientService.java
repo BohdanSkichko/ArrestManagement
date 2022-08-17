@@ -1,6 +1,6 @@
 package com.example.arrestmanagement.service;
 
-import com.example.arrestmanagement.model.Client;
+import com.example.arrestmanagement.entity.Client;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.model;
+package com.example.arrestmanagement.entity;
 
 
 import lombok.EqualsAndHashCode;
@@ -25,13 +25,11 @@ public class Arrest {
     @Column(name = "id")
     private Long id;
 
-
-
     @Column(name = "doc_date")
     private Date docDate;
 
     @Pattern(regexp = "[A-Za-z0-9#№-]", message = "You can use only: A-Z a-z 0-9 # № -")
-    @Column(name = "dacNum", length = 30)
+    @Column(name = "docNum", length = 30)
     private String docNum;
 
     @Column(name = "purpose", length = 1000)
@@ -44,6 +42,9 @@ public class Arrest {
     @Column(name = "status")
     private Status status = Status.ACTING;
 
+    @ManyToOne()
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "organ_code")
@@ -68,17 +69,9 @@ public class Arrest {
 
 
 
-    @ManyToOne()
-    @JoinColumn(name = "client_id")
-    private Client client;
 
     public Arrest() {
     }
-
-
-
-
-
 
    public enum Status {
         ACTING("Acting"),

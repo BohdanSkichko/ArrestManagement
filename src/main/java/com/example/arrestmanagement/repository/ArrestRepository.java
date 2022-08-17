@@ -1,8 +1,10 @@
 package com.example.arrestmanagement.repository;
 
-import com.example.arrestmanagement.model.Arrest;
+import com.example.arrestmanagement.dto.ArrestRequest;
+import com.example.arrestmanagement.entity.Arrest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.Optional;
 
@@ -12,4 +14,5 @@ public interface ArrestRepository extends JpaRepository<Arrest, Long> {
 
     public Optional<Arrest> findArrestById(Long id);
 
+    public Arrest save( ArrestRequest arrestRequest);
 }

@@ -1,7 +1,6 @@
 package com.example.arrestmanagement.repository;
 
-import com.example.arrestmanagement.model.Arrest;
-import com.example.arrestmanagement.model.Client;
+import com.example.arrestmanagement.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

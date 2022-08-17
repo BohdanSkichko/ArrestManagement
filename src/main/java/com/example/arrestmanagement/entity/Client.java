@@ -1,10 +1,10 @@
-package com.example.arrestmanagement.model;
+package com.example.arrestmanagement.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -16,16 +16,13 @@ import java.util.*;
 @EqualsAndHashCode
 
 @Entity
-@Table(name = "clients")
+@Table(name = "client")
 public class Client {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private UUID id;
+    private Long id;
 
     @Column(name = "name", length = 100)
     private String firstName;
@@ -33,29 +30,11 @@ public class Client {
     @Column(name = "surname", length = 100)
     private String lastName;
 
+    @Column(name = "dul_type")
+    private Integer dulType;
 
-    @OneToOne
-    @JoinColumn(name = "dul_id") // type DUL  1 or 2
-    private DUL dul;
-
-
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "dul")
-//    private Dul dul;
-//
-//
-//
-//    enum Dul {
-//        PASSPORT(1),
-//        FOREIGN_PASSPORT(2)
-//        ;
-//
-//        private final int type;
-//
-//        Dul(int type) {
-//            this.type = type;
-//        }
-//    }
+    @Column(name = "numSeries", length = 12)
+    private String numSeries;
 
 
     @Column(name = "birthday")

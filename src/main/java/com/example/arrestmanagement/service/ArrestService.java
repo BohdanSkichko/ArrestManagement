@@ -1,12 +1,17 @@
 package com.example.arrestmanagement.service;
 
-import com.example.arrestmanagement.model.Arrest;
+import com.example.arrestmanagement.dto.ArrestRequest;
+import com.example.arrestmanagement.entity.Arrest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
 @Service
 public interface ArrestService {
+
+    Arrest save(@RequestBody ArrestRequest arrestRequest);
+
     Arrest updateArrest(Arrest arrest);
 
     Optional<Arrest> findArrestById(Long id);

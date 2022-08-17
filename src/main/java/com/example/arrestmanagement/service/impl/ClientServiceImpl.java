@@ -1,6 +1,6 @@
 package com.example.arrestmanagement.service.impl;
 
-import com.example.arrestmanagement.model.Client;
+import com.example.arrestmanagement.entity.Client;
 import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
