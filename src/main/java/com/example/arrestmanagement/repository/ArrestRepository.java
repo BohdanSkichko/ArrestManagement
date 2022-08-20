@@ -12,7 +12,4 @@ import java.util.Optional;
 @Repository
 public interface ArrestRepository extends JpaRepository<Arrest, Long> {
 
-    public Optional<Arrest> findArrestById(Long id);
-
-    public Arrest save( ArrestRequest arrestRequest);
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public interface ArrestService {
 
-    Arrest save(@RequestBody ArrestRequest arrestRequest);
+
 
     Arrest updateArrest(Arrest arrest);
 

@@ -1,8 +1,8 @@
 package com.example.arrestmanagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.persistence.Column;
 import java.sql.Date;
 
 @Getter
@@ -11,17 +11,17 @@ import java.sql.Date;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class IdentDoc {
+public class IdentDocDTO {
 
-    @Column(name = "type")
+    @JsonProperty("Type")
     private int type;
 
 
-    @Column(name = "number_series")
+    @JsonProperty("NumberSeries")
     private String numberSeries;
 
 
-    @Column(name = "issue_date")
+    @JsonProperty("IssueDate")
     private Date issueDate;
 
 }

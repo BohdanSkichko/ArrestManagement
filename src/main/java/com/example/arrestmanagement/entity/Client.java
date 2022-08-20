@@ -7,6 +7,9 @@ import lombok.ToString;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.*;
 
@@ -16,7 +19,7 @@ import java.util.*;
 @EqualsAndHashCode
 
 @Entity
-@Table(name = "client")
+@Table(name = "clients")
 public class Client {
 
     @Id
@@ -30,8 +33,11 @@ public class Client {
     @Column(name = "surname", length = 100)
     private String lastName;
 
+    @Max(2)
+    @Min(1)
+    @NotNull
     @Column(name = "dul_type")
-    private Integer dulType;
+    private int dulType;
 
     @Column(name = "numSeries", length = 12)
     private String numSeries;
@@ -44,10 +50,21 @@ public class Client {
     private String placeOfBirth;
 
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "client")
+    @OneToMany(mappedBy = "client")
     private List<Arrest> arrests;
 
 
     public Client() {
     }
+
+    public void addArrestToClient(Arrest arrest) {
+        if (arrests == null) {
+            arrests = new ArrayList<>();
+        }
+        arrests.add(arrest);
+        arrest.setClient(this);
+    }
 }
+
+
+

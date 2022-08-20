@@ -14,7 +14,7 @@ public class ArrestResponse {
     private Long id;
 
     @JsonProperty("ResultCode")
-    private int code;
+    private int resultCode;
 
     @JsonProperty("ResultText")
     private String decryption;

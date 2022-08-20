@@ -22,19 +22,15 @@ public class ArrestServiceImpl implements ArrestService {
 
 
     @Override
-    public Arrest save(ArrestRequest arrestRequest) {
-        return arrestRepository.save(arrestRequest);
-    }
-
-    @Override
     public Arrest updateArrest(Arrest arrest) {
         return arrestRepository.save(arrest);
     }
 
     @Override
     public Optional<Arrest> findArrestById(Long id) {
-        return arrestRepository.findArrestById(id);
+        return Optional.empty();
     }
+
 
     @Override
     public Arrest saveArrest(Arrest arrest) {
@@ -42,27 +38,16 @@ public class ArrestServiceImpl implements ArrestService {
         return arrestRepository.save(arrest);
     }
 
+    @Override
     public Arrest updateArrestAmountAndPurposeById(Long id, Long amount, String purpose) {
-        Arrest arrest = arrestRepository.findArrestById(id).get();
 
-//        Long sum = arrest.getAmount();
-//        Long diff = sum - Math.abs(amount);
-//        if (diff == 0){
-//            arrest.setStatus(Arrest.Status.CANCELED);
-//        }
-        if (amount == 0) {
-            arrest.setStatus(Arrest.Status.CANCELED);
-        }
-        arrest.setAmount(amount);
-        arrest.setPurpose(purpose);
-        return arrestRepository.save(arrest);
+        return null;
     }
 
     @Override
     public Arrest canceledArrestByID(Long id) {
-        Arrest arrest = arrestRepository.findArrestById(id).get();
-        arrest.setStatus(Arrest.Status.CANCELED);
-        return arrest;
+        return null;
     }
+
 
 }

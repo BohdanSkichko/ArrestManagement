@@ -25,9 +25,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<Client> findClientByFirstNameAndLastName(String name, String surname) {
-        return clientRepository.findClientByFirstNameAndLastName(name, surname);
+    public Optional<Client> findClientByFirstNameAndLastNameAndDulTypeAndNumSeries(
+            String firstName, String lastName, Integer dulType, String numSeries) {
+        return clientRepository.findClientByFirstNameAndLastNameAndDulTypeAndNumSeries(
+                firstName,lastName,dulType,numSeries);
     }
+
 
     @Override
     public Optional<Client> findById(Long id) {

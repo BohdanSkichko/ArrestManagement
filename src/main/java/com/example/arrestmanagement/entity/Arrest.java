@@ -28,7 +28,7 @@ public class Arrest {
     @Column(name = "doc_date")
     private Date docDate;
 
-    @Pattern(regexp = "[A-Za-z0-9#№-]", message = "You can use only: A-Z a-z 0-9 # № -")
+//    @Pattern(regexp = "[A-Za-z0-9#№-]", message = "You can use only: A-Z a-z 0-9 # № -")
     @Column(name = "docNum", length = 30)
     private String docNum;
 
@@ -46,28 +46,9 @@ public class Arrest {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @Enumerated(EnumType.STRING)
+
     @Column(name = "organ_code")
-    private OrganCode organCode;
-
-    enum OrganCode {
-        FSSP(17),
-        FNS(39);
-
-        private final int code;
-
-        public int getCode() {
-            return code;
-        }
-
-        OrganCode(int code) {
-            this.code = code;
-        }
-
-    }
-
-
-
+    private int organCode;
 
 
     public Arrest() {

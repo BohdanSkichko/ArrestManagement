@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface ClientService {
     List<Client> findAll();
 
-    Optional<Client> findClientByFirstNameAndLastName(String name, String surname);
+    Optional<Client> findClientByFirstNameAndLastNameAndDulTypeAndNumSeries(
+            String firstName, String lastName, Integer dulType, String numSeries);
 
     Optional<Client> findById(Long id);
 
@@ -19,4 +20,5 @@ public interface ClientService {
     Client updateClient(Client client);
 
     void deleteClient(Long id);
+
 }
