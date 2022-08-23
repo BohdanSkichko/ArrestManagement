@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.ident_doc_validator.fns;
+package com.example.arrestmanagement.validator.ident_doc_validator.fns;
 
 import lombok.*;
 
@@ -10,11 +10,11 @@ import javax.validation.constraints.Pattern;
 
 public class FNSForeignPassport {
     private final String PATTERN = "\\d{2} [A-Z]{6}";
-    //    @Pattern(regexp = "\\d{2} [A-Z]{6}", message = "Please use pattern SS NNNNNN, where N - Letter, S - Digit")
-    private String format;         // @Pattern not work              //NNNNNN SS
+    private String format;
 
 
-    public String convertToClientFormat() {
+    public String convertToClientFormat(String format) {
+        this.format = format;
         if (this.check()) {
             String ss = format;
             StringBuilder stringBuilderSS = new StringBuilder(ss);

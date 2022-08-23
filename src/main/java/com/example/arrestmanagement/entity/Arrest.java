@@ -28,7 +28,7 @@ public class Arrest {
     @Column(name = "doc_date")
     private Date docDate;
 
-//    @Pattern(regexp = "[A-Za-z0-9#№-]", message = "You can use only: A-Z a-z 0-9 # № -")
+    //    @Pattern(regexp = "[A-Za-z0-9#№-]", message = "You can use only: A-Z a-z 0-9 # № -")
     @Column(name = "docNum", length = 30)
     private String docNum;
 
@@ -42,7 +42,7 @@ public class Arrest {
     @Column(name = "status")
     private Status status = Status.ACTING;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.PERSIST})
     @JoinColumn(name = "client_id")
     private Client client;
 
@@ -54,7 +54,7 @@ public class Arrest {
     public Arrest() {
     }
 
-   public enum Status {
+    public enum Status {
         ACTING("Acting"),
         COMPLETED("Completed"),
         CANCELED("Canceled");

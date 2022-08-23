@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.ident_doc_validator.fssp;
+package com.example.arrestmanagement.validator.ident_doc_validator.fssp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +13,12 @@ import javax.validation.constraints.Pattern;
 
 public class FSSPPassport {
     private final String PATTERN = "[A-Z]{6}-\\d{4}";
-//    @Pattern(regexp = "[A-Z]{6}-\\d{4}", message = "Please use pattern NNNNNN-SSSS, where N - Letter, S - Digit")
-    private String format;                                           //NNNNNN SS SS
 
-    public String convertToClientFormat() {
-        if (check()) {
+    private String format;
+
+    public String convertToClientFormat(String format) {
+        this.format = format;
+        if (this.check()) {
             String ss = format;
             StringBuilder stringBuilderSS = new StringBuilder(ss);
             String SS_SS = String.valueOf(stringBuilderSS.delete(0, 7).insert(2, " "));

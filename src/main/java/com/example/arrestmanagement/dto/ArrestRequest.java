@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class ArrestRequest {
-    @JsonProperty("RequestId") //GUID
+    @JsonProperty("RequestId")
     private String requestID;
 
     @JsonProperty("LastName")

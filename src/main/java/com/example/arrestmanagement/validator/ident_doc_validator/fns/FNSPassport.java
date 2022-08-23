@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.ident_doc_validator.fns;
+package com.example.arrestmanagement.validator.ident_doc_validator.fns;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,14 +13,12 @@ import javax.validation.constraints.Pattern;
 @ToString
 
 public class FNSPassport {
-
-
     private final String PATTERN = "\\d{2} \\d{2} [A-Z]{6}";
-//    @Pattern(regexp = "\\d{2} \\d{2} [A-Z]{6}", message = "Please use pattern SS SS NNNNNN where N - Letter, S - Digit")
-    private String format;                                                 // NNNNNN SS SS
+    private String format;
 
-    public String convertToClientFormat() {
-        if (check()) {
+    public String convertToClientFormat(String format) {
+        this.format = format;
+        if (this.check()) {
             String ss_ss = format;
             StringBuilder stringBuilderSS = new StringBuilder(ss_ss);
             String SS_SS = String.valueOf(stringBuilderSS.delete(5, 12));

@@ -1,23 +1,21 @@
-package com.example.arrestmanagement.ident_doc_validator.fssp;
+package com.example.arrestmanagement.validator.ident_doc_validator.fssp;
 
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
 @ToString
-
+@EqualsAndHashCode
 public class FSSPForeignPassport {
 
     private final String PATTERN = "[A-Z]{6}\\.\\d{2}";
-    @Pattern(regexp = "[A-Z]{6}\\.\\d{2}", message = "Please use pattern NNNNNN.SS, where N - Letter, S - Digit")
-    private String format;                                             //SS NNNNNN
 
-    public String convertToClientFormat() {
-        if (check()) {
+    private String format;
+
+    public String convertToClientFormat(String format) {
+        this.format = format;
+        if (this.check()) {
             String ss = format;
             StringBuilder stringBuilderSS = new StringBuilder(ss);
             String SS = String.valueOf(stringBuilderSS.delete(0, 7));

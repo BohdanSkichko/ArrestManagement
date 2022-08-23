@@ -33,9 +33,9 @@ public class Client {
     @Column(name = "surname", length = 100)
     private String lastName;
 
-    @Max(2)
-    @Min(1)
-    @NotNull
+    //    @Max(2)
+//    @Min(1)
+//    @NotNull
     @Column(name = "dul_type")
     private int dulType;
 
@@ -44,13 +44,13 @@ public class Client {
 
 
     @Column(name = "birthday")
-    private Date birthday; //yyyy-MM-dd
+    private Date birthday;
 
     @Column(name = "place_birth", length = 250)
     private String placeOfBirth;
 
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.PERSIST}, mappedBy = "client")
     private List<Arrest> arrests;
 
 
