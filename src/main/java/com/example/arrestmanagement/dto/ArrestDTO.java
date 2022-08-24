@@ -2,15 +2,13 @@ package com.example.arrestmanagement.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.sql.Date;
 
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 
 @AllArgsConstructor
 @RequiredArgsConstructor

@@ -13,11 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface ArrestRepository extends JpaRepository<Arrest, Long> {
-    Optional<Arrest> findArrestByDocNum(String docNum);
 
     Optional<Arrest> findArrestByClientAndDocNum(Client client, String docNum);
-    Optional<Arrest> findArrestByClient(Client client);
-    List<Arrest> findArrestsByClient(Client client);
 
 
 }

@@ -28,7 +28,7 @@ public class Arrest {
     @Column(name = "doc_date")
     private Date docDate;
 
-    //    @Pattern(regexp = "[A-Za-z0-9#№-]", message = "You can use only: A-Z a-z 0-9 # № -")
+
     @Column(name = "docNum", length = 30)
     private String docNum;
 

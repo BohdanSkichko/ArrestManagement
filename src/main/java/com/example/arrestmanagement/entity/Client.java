@@ -33,9 +33,7 @@ public class Client {
     @Column(name = "surname", length = 100)
     private String lastName;
 
-    //    @Max(2)
-//    @Min(1)
-//    @NotNull
+
     @Column(name = "dul_type")
     private int dulType;
 

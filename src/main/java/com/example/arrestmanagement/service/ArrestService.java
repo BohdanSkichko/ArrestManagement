@@ -1,5 +1,7 @@
 package com.example.arrestmanagement.service;
 
+import com.example.arrestmanagement.dto.ArrestRequest;
+import com.example.arrestmanagement.dto.ArrestResponse;
 import com.example.arrestmanagement.entity.Arrest;
 import com.example.arrestmanagement.entity.Client;
 import org.springframework.stereotype.Service;
@@ -11,22 +13,18 @@ import java.util.Optional;
 public interface ArrestService {
 
 
-
     Arrest updateArrest(Arrest arrest);
-
-    Optional<Arrest> findArrestById(Long id);
-
     Arrest saveArrest(Arrest arrest);
 
-    Optional<Arrest> findArrestByDocNum(String docNUm);
-    List<Arrest> findAllByClient(Client client);
+    ArrestResponse canceledArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse);
 
-    Optional<Arrest> findByClientAndByDocNm(Client client, String docNum);
-    Optional<Arrest> findByClient (Client client);
+    ArrestResponse createArrest (Client client,ArrestRequest arrestRequest, ArrestResponse arrestResponse);
 
-    Optional<Arrest> update(Arrest arrest);
+    ArrestResponse editArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse);
+    Optional<Arrest> findByClientAndByDocNum(Client client, ArrestRequest arrestRequest);
 
-    Arrest updateArrestAmountAndPurposeById(Long id, Long amount, String purpose);
+    Optional<Arrest> findByClientAndByRefDocNum(Client client, ArrestRequest arrestRequest);
 
-    Arrest canceledArrestByID(Long id);
+    Optional<Arrest> getArrest(ArrestRequest arrestRequest);
+
 }

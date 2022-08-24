@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.validator.ident_doc_validator.fns;
+package com.example.arrestmanagement.validator.fns;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,16 +19,14 @@ public class FNSPassport {
     public String convertToClientFormat(String format) {
         this.format = format;
         if (this.check()) {
-            String ss_ss = format;
-            StringBuilder stringBuilderSS = new StringBuilder(ss_ss);
+            StringBuilder stringBuilderSS = new StringBuilder(format);
             String SS_SS = String.valueOf(stringBuilderSS.delete(5, 12));
 
-            String nnnnnn = format;
-            StringBuilder stringBuilderNNNNN = new StringBuilder(nnnnnn);
+            StringBuilder stringBuilderNNNNN = new StringBuilder(format);
             String NNNNNN = String.valueOf(stringBuilderNNNNN.delete(0, 6));
 
             return NNNNNN + " " + SS_SS;
-        } else throw new RuntimeException("incorrect NumberSeries");
+        } else throw new IllegalArgumentException("incorrect NumberSeries");
     }
 
     private boolean check() {
