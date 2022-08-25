@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.exception_handling;
+package com.example.arrestmanagement.exception.handling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

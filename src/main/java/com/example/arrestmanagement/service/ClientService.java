@@ -11,9 +11,6 @@ import java.util.Optional;
 @Service
 
 public interface ClientService {
-    List<Client> findAll();
-
-    Optional<Client> findById(Long id);
 
     @Transient
     Client saveClient(Client client);
@@ -22,7 +19,6 @@ public interface ClientService {
 
     Client getClient(ArrestRequest arrestRequest);
 
-    void deleteClient(Long id);
 
     Optional<Client> findClient(Client client);
 

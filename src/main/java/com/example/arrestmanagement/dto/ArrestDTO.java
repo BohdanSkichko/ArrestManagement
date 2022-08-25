@@ -24,7 +24,7 @@ public class ArrestDTO {
     @JsonProperty("DocNum")
     private String docNum;
 
-    @Size(max = 1000)
+    @Size(max = 1000, message = "max 1000 symbols")
     @JsonProperty("Purpose")
     private String purpose;
 

@@ -12,12 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 
 @RestController
 @Validated
-@Transactional (noRollbackFor = IllegalArgumentException.class) //(propagation = Propagation.NOT_SUPPORTED)
+@Transactional
 @RequestMapping("/api")
 public class MainController {
 
@@ -35,7 +34,7 @@ public class MainController {
     }
 
     @PostMapping("/managerarrest")
-    public ArrestResponse putRequest(@Valid @RequestBody ArrestRequest request) {
+    public ArrestResponse putRequest(@Validated @RequestBody ArrestRequest request) {
 
         ArrestResponse arrestResponse = new ArrestResponse();
         try {

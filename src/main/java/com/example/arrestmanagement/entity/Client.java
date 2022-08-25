@@ -7,9 +7,6 @@ import lombok.ToString;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.*;
 

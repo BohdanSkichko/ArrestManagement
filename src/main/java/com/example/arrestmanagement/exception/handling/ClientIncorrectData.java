@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.exception_handling;
+package com.example.arrestmanagement.exception.handling;
 
 public class ClientIncorrectData {
     private String info;

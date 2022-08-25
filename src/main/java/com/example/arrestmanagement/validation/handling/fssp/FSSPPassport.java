@@ -1,12 +1,8 @@
-package com.example.arrestmanagement.validator.fssp;
+package com.example.arrestmanagement.validation.handling.fssp;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.Pattern;
-
 @Getter
 @Setter
 @ToString

@@ -22,21 +22,20 @@ public class ArrestRequest {
     @JsonProperty("RequestId")
     private String requestID;
 
+    @Size(max = 100, message = "max 100 symbols")
     @JsonProperty("LastName")
     private String lastname;
 
+    @Size(max = 100, message = "max 100 symbols")
     @JsonProperty("FirstName")
     private String firstName;
 
     @JsonProperty("IdentDoc")
     private IdentDocDTO identDocDTO;
 
-
-//    @Pattern(regexp = "^17|^39", message = "You can only use:  17 or 39")
     @JsonProperty("OrganCode")
     private int organCode;
 
-    @Valid
     @JsonProperty("Arrest")
     private ArrestDTO arrestDTO;
 }

@@ -5,7 +5,7 @@ import com.example.arrestmanagement.dto.IdentDocDTO;
 import com.example.arrestmanagement.entity.Client;
 import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ClientService;
-import com.example.arrestmanagement.validator.ClientsIdentDoc;
+import com.example.arrestmanagement.validation.handling.ClientsIdentDoc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
@@ -26,11 +26,6 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
-    public List<Client> findAll() {
-        return clientRepository.findAll();
-    }
-
-    @Override
     @Transient
     public Optional<Client> findClient(Client client) {
         String firstName = client.getFirstName();
@@ -41,11 +36,6 @@ public class ClientServiceImpl implements ClientService {
                 firstName, lastName, dulType, numSeries);
     }
 
-
-    @Override
-    public Optional<Client> findById(Long id) {
-        return clientRepository.findById(id);
-    }
 
     @Override
     public Client saveClient(Client client) {
@@ -68,12 +58,12 @@ public class ClientServiceImpl implements ClientService {
 
     public Client saveNewClientOrGetFromDB(Client client) {
         Optional<Client> clientInDB = findClient(client);
-        if (!clientInDB.isPresent()) {
-            saveClient(client);
-            Optional<Client> newClient = findClient(client);
-            return newClient.get();
+        if (clientInDB.isPresent()) {
+            return clientInDB.get();
         }
-        return clientInDB.get();
+        saveClient(client);
+        return findClient(client).get();
+
     }
 
     @Override
@@ -81,8 +71,4 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.save(client);
     }
 
-    @Override
-    public void deleteClient(Long id) {
-        clientRepository.deleteById(id);
-    }
 }

@@ -1,8 +1,6 @@
-package com.example.arrestmanagement.validator.fns;
+package com.example.arrestmanagement.validation.handling.fns;
 
 import lombok.*;
-
-import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter

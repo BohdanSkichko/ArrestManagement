@@ -1,27 +1,27 @@
-package com.example.arrestmanagement.validator.fssp;
+package com.example.arrestmanagement.validation.handling.fns;
 
-import lombok.*;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
-public class FSSPForeignPassport {
 
-    private final String PATTERN = "[A-Z]{6}\\.\\d{2}";
-
+public class FNSPassport {
+    private final String PATTERN = "\\d{2} \\d{2} [A-Z]{6}";
     private String format;
 
     public String convertToClientFormat(String format) {
         this.format = format;
         if (this.check()) {
             StringBuilder stringBuilderSS = new StringBuilder(format);
-            String SS = String.valueOf(stringBuilderSS.delete(0, 7));
+            String SS_SS = String.valueOf(stringBuilderSS.delete(5, 12));
 
             StringBuilder stringBuilderNNNNN = new StringBuilder(format);
-            String NNNNNN = String.valueOf(stringBuilderNNNNN.delete(6, 9));
-            return NNNNNN + " " + SS;
+            String NNNNNN = String.valueOf(stringBuilderNNNNN.delete(0, 6));
+
+            return NNNNNN + " " + SS_SS;
         } else throw new IllegalArgumentException("incorrect NumberSeries");
     }
 

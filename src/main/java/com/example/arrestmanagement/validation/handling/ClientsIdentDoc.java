@@ -1,18 +1,20 @@
-package com.example.arrestmanagement.validator;
+package com.example.arrestmanagement.validation.handling;
 
 import com.example.arrestmanagement.dto.ArrestRequest;
 import com.example.arrestmanagement.dto.IdentDocDTO;
-import com.example.arrestmanagement.validator.fssp.FSSPForeignPassport;
-import com.example.arrestmanagement.validator.fssp.FSSPPassport;
-import com.example.arrestmanagement.validator.fns.FNSForeignPassport;
-import com.example.arrestmanagement.validator.fns.FNSPassport;
+import com.example.arrestmanagement.validation.handling.fssp.FSSPForeignPassport;
+import com.example.arrestmanagement.validation.handling.fssp.FSSPPassport;
+import com.example.arrestmanagement.validation.handling.fns.FNSForeignPassport;
+import com.example.arrestmanagement.validation.handling.fns.FNSPassport;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
+@Transactional
 public class ClientsIdentDoc {
     private final int FNS = 39;
     private final int FSSP = 17;
