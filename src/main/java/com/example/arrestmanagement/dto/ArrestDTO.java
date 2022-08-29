@@ -2,6 +2,8 @@ package com.example.arrestmanagement.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
+
 import javax.validation.constraints.*;
 import java.sql.Date;
 
@@ -9,7 +11,6 @@ import java.sql.Date;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 @AllArgsConstructor
 @RequiredArgsConstructor
 
@@ -19,7 +20,7 @@ public class ArrestDTO {
     private Date docDate;
 
 
-    @Size(max = 30,message = "max 30 symbols")
+    @Size(max = 30, message = "max 30 symbols")
     @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can use only: A-Z a-z 0-9 # № -")
     @JsonProperty("DocNum")
     private String docNum;
@@ -29,6 +30,8 @@ public class ArrestDTO {
     private String purpose;
 
 
+
+    @Min(value = 0, message = "the amount must be only positive")
     @JsonProperty("Amount")
     private Long amount;
 

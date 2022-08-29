@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
 
@@ -34,6 +33,7 @@ public class Arrest {
 
     @Column(name = "purpose", length = 1000)
     private String purpose;
+
 
     @Column(name = "amount")
     private Long amount;

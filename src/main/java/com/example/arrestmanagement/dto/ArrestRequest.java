@@ -5,9 +5,6 @@ import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -15,6 +12,7 @@ import javax.validation.constraints.Size;
 @Setter
 @ToString
 @EqualsAndHashCode
+
 
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -30,12 +28,14 @@ public class ArrestRequest {
     @JsonProperty("FirstName")
     private String firstName;
 
+    @Valid
     @JsonProperty("IdentDoc")
     private IdentDocDTO identDocDTO;
 
     @JsonProperty("OrganCode")
     private int organCode;
 
+    @Valid
     @JsonProperty("Arrest")
     private ArrestDTO arrestDTO;
 }

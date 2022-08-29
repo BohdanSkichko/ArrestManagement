@@ -1,5 +1,6 @@
 package com.example.arrestmanagement.validation.handling.fns;
 
+import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import lombok.*;
 
 @Getter
@@ -7,7 +8,7 @@ import lombok.*;
 @ToString
 
 public class FNSForeignPassport {
-    private final String PATTERN = "\\d{2} [A-Z]{6}";
+    private static final String PATTERN = "\\d{2} [A-Z]{6}";
     private String format;
 
 
@@ -22,7 +23,7 @@ public class FNSForeignPassport {
 
             return NNNNNN + " " + SS;
         } else {
-            throw new IllegalArgumentException("incorrect NumberSeries");
+            throw new ArrestIncorrectException("incorrect NumberSeries");
         }
     }
 

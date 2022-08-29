@@ -1,5 +1,6 @@
 package com.example.arrestmanagement.validation.handling.fns;
 
+import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +10,7 @@ import lombok.ToString;
 @ToString
 
 public class FNSPassport {
-    private final String PATTERN = "\\d{2} \\d{2} [A-Z]{6}";
+    private static final String PATTERN = "\\d{2} \\d{2} [A-Z]{6}";
     private String format;
 
     public String convertToClientFormat(String format) {
@@ -22,7 +23,7 @@ public class FNSPassport {
             String NNNNNN = String.valueOf(stringBuilderNNNNN.delete(0, 6));
 
             return NNNNNN + " " + SS_SS;
-        } else throw new IllegalArgumentException("incorrect NumberSeries");
+        } else throw new ArrestIncorrectException("incorrect NumberSeries");
     }
 
     private boolean check() {

@@ -1,5 +1,6 @@
 package com.example.arrestmanagement.validation.handling.fssp;
 
+import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +9,7 @@ import lombok.ToString;
 @ToString
 
 public class FSSPPassport {
-    private final String PATTERN = "[A-Z]{6}-\\d{4}";
+    private static final String PATTERN = "[A-Z]{6}-\\d{4}";
 
     private String format;
 
@@ -22,7 +23,7 @@ public class FSSPPassport {
             String NNNNNN = String.valueOf(stringBuilderNNNNN.delete(6, 12));
 
             return NNNNNN + " " + SS_SS;
-        } else throw new IllegalArgumentException("incorrect NumberSeries");
+        } else throw new ArrestIncorrectException("incorrect NumberSeries");
     }
 
     private boolean check() {
