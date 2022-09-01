@@ -7,7 +7,7 @@ import com.example.arrestmanagement.entity.Arrest;
 import com.example.arrestmanagement.entity.Client;
 import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import com.example.arrestmanagement.exception.handling.NoSuchArrestException;
-import com.example.arrestmanagement.helper.PropertiesEnum;
+import com.example.arrestmanagement.helper.OperationPropertiesEnum;
 import com.example.arrestmanagement.repository.ArrestRepository;
 import com.example.arrestmanagement.service.ArrestService;
 import lombok.AllArgsConstructor;
@@ -30,12 +30,11 @@ public class ArrestServiceImpl implements ArrestService {
 
     @Override
     public Arrest saveArrest(Arrest arrest) {
-
         return arrestRepository.save(arrest);
     }
 
 
-    public Optional<Arrest> getArrest(ArrestRequest arrestRequest) {
+    public Optional<Arrest> getArrestFromRequest(ArrestRequest arrestRequest) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         Arrest arrest = new Arrest();
         arrest.setDocDate(arrestDTO.getDocDate());
@@ -63,22 +62,23 @@ public class ArrestServiceImpl implements ArrestService {
 
     public ArrestResponse editArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
-        if (arrestDTO.getOperation() == Integer.parseInt(PropertiesEnum.EDIT_ARREST.getPath())) {
-            Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
-            if (clientsArrest.isPresent()) {
-                Arrest arrest = clientsArrest.get();
-                arrest.setAmount(arrestDTO.getAmount());
-                arrest.setPurpose(arrestDTO.getPurpose());
-                if (arrest.getAmount() > 0) {
-                    arrest.setStatus(Arrest.Status.ACTING);
-                } else {
-                    arrest.setStatus(Arrest.Status.CANCELED);
-                    saveArrest(arrest);
-                }
-                arrestResponse.setId(arrest.getId());
+        if (arrestDTO.getOperation() != Integer.parseInt(OperationPropertiesEnum.EDIT_ARREST.getPath())) {
+            return arrestResponse;
+        }
+        Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
+        if (!clientsArrest.isPresent()) {
+            throw new NoSuchArrestException("Arrest not found");
+        } else {
+            Arrest arrest = clientsArrest.get();
+            arrest.setAmount(arrestDTO.getAmount());
+            arrest.setPurpose(arrestDTO.getPurpose());
+            if (arrest.getAmount() > 0) {
+                arrest.setStatus(Arrest.Status.ACTING);
             } else {
-                throw new NoSuchArrestException("not find Arrest");
+                arrest.setStatus(Arrest.Status.CANCELED);
+                saveArrest(arrest);
             }
+            arrestResponse.setId(arrest.getId());
         }
         return arrestResponse;
 
@@ -86,36 +86,36 @@ public class ArrestServiceImpl implements ArrestService {
 
     public ArrestResponse canceledArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
-        if (arrestDTO.getOperation() == Integer.parseInt(PropertiesEnum.CANCELED_ARREST.getPath())) {
-            Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
-            if (clientsArrest.isPresent()) {
-                Arrest arrest = clientsArrest.get();
-                arrest.setStatus(Arrest.Status.CANCELED);
-                updateArrest(arrest);
-                arrestResponse.setId(arrest.getId());
-            } else {
-                throw new NoSuchArrestException("not find Arrest");
-            }
+        if (arrestDTO.getOperation() != Integer.parseInt(OperationPropertiesEnum.CANCELED_ARREST.getPath())) {
+            return arrestResponse;
         }
+        Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
+        if (!clientsArrest.isPresent()) {
+            throw new NoSuchArrestException("Arrest not found");
+        }
+
+        Arrest arrest = clientsArrest.get();
+        arrest.setStatus(Arrest.Status.CANCELED);
+        updateArrest(arrest);
+        arrestResponse.setId(arrest.getId());
         return arrestResponse;
     }
 
     public ArrestResponse createArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
-        if (arrestDTO.getOperation() == Integer.parseInt(PropertiesEnum.FIRST_OPERATION.getPath())) {
-            Optional<Arrest> findArrest = findByClientAndByDocNum(client, arrestRequest);
-            if (!findArrest.isPresent()) {
-                Arrest arrest = getArrest(arrestRequest).get();
-                arrest.setClient(client);
-                client.addArrestToClient(arrest);
-                saveArrest(arrest);
-                arrestResponse.setId(arrest.getId());
-            } else {
-                throw new ArrestIncorrectException("this arrest is already present");
-            }
+        if (arrestDTO.getOperation() != Integer.parseInt(OperationPropertiesEnum.FIRST_OPERATION.getPath())) {
+            return arrestResponse;
         }
+        Optional<Arrest> findArrest = findByClientAndByDocNum(client, arrestRequest);
+        if (findArrest.isPresent()) {
+            throw new ArrestIncorrectException("this arrest is already present");
+        }
+        Arrest arrest = getArrestFromRequest(arrestRequest).get();
+        arrest.setClient(client);
+        client.addArrestToClient(arrest);
+        saveArrest(arrest);
+        arrestResponse.setId(arrest.getId());
         return arrestResponse;
-
     }
 
 }

@@ -35,7 +35,7 @@ public class ArrestDTO {
     @JsonProperty("Amount")
     private Long amount;
 
-
+    @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can use only: A-Z a-z 0-9 # № -")
     @JsonProperty("RefDocNum")
     private String refDocNum;
 

@@ -4,12 +4,17 @@ import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.Pattern;
+
 @Getter
 @Setter
 @ToString
-
+@Component
 public class FSSPPassport {
     private static final String PATTERN = "[A-Z]{6}-\\d{4}";
+
 
     private String format;
 

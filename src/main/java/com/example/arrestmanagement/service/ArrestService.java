@@ -6,7 +6,6 @@ import com.example.arrestmanagement.entity.Arrest;
 import com.example.arrestmanagement.entity.Client;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +24,6 @@ public interface ArrestService {
 
     Optional<Arrest> findByClientAndByRefDocNum(Client client, ArrestRequest arrestRequest);
 
-    Optional<Arrest> getArrest(ArrestRequest arrestRequest);
+    Optional<Arrest> getArrestFromRequest(ArrestRequest arrestRequest);
 
 }

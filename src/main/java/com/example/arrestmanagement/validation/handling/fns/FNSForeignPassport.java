@@ -2,13 +2,16 @@ package com.example.arrestmanagement.validation.handling.fns;
 
 import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @ToString
-
+@Component
 public class FNSForeignPassport {
     private static final String PATTERN = "\\d{2} [A-Z]{6}";
+
+
     private String format;
 
 

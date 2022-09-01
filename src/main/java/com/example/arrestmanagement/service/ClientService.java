@@ -5,7 +5,6 @@ import com.example.arrestmanagement.entity.Client;
 import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,7 +16,7 @@ public interface ClientService {
 
     Client updateClient(Client client);
 
-    Client getClient(ArrestRequest arrestRequest);
+    Client getClientFromRequest(ArrestRequest arrestRequest);
 
 
     Optional<Client> findClient(Client client);

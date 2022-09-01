@@ -2,12 +2,16 @@ package com.example.arrestmanagement.validation.handling.fssp;
 
 import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import lombok.*;
+import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.Pattern;
 
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
+@Component
 public class FSSPForeignPassport {
 
     private static final String PATTERN = "[A-Z]{6}\\.\\d{2}";

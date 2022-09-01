@@ -5,13 +5,16 @@ import com.example.arrestmanagement.dto.ArrestResponse;
 import com.example.arrestmanagement.entity.Client;
 import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import com.example.arrestmanagement.exception.handling.NoSuchArrestException;
-import com.example.arrestmanagement.helper.PropertiesEnum;
+import com.example.arrestmanagement.helper.ErrorsPropertiesEnum;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import java.util.Objects;
+import org.springframework.validation.FieldError;
+
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -26,35 +29,41 @@ public class MainService {
 
     private final ClientService clientService;
 
-    public ArrestResponse putRequest(ArrestRequest arrestRequest, BindingResult result) {
+    public ArrestResponse processRequest(ArrestRequest arrestRequest, BindingResult result) {
 
         ArrestResponse arrestResponse = new ArrestResponse();
         if (result.hasErrors()) {
-            arrestResponse.setResultCode((Integer.parseInt(PropertiesEnum.BUSINESS_ERROR.getPath())));
-            arrestResponse.setDecryption( "Field: \"" +  Objects.requireNonNull(result.getFieldError()).getRejectedValue()
-                    +  "\" " + result.getFieldError().getDefaultMessage()  + " \n " + result.getTarget());
-            return arrestResponse;
+            return getArrestResponseWithErrors(result, arrestResponse);
         }
         try {
-            Client client = clientService.getClient(arrestRequest);
-
+            Client client = clientService.getClientFromRequest(arrestRequest);
             arrestService.createArrest(client, arrestRequest, arrestResponse);
             arrestService.editArrest(client, arrestRequest, arrestResponse);
             arrestService.canceledArrest(client, arrestRequest, arrestResponse);
-
             if (arrestResponse.getResultCode() == 0) {
                 arrestResponse.setDecryption("success");
             }
-
         } catch (NoSuchArrestException | ArrestIncorrectException e) {
-            arrestResponse.setResultCode(Integer.parseInt(PropertiesEnum.BUSINESS_ERROR.getPath()));
+            arrestResponse.setResultCode(Integer.parseInt(ErrorsPropertiesEnum.BUSINESS_ERROR.getPath()));
             arrestResponse.setDecryption(e.getMessage());
             return arrestResponse;
         } catch (Exception e) {
-            arrestResponse.setResultCode(Integer.parseInt(PropertiesEnum.TECHNICAL_ERROR.getPath()));
+            arrestResponse.setResultCode(Integer.parseInt(ErrorsPropertiesEnum.TECHNICAL_ERROR.getPath()));
             arrestResponse.setDecryption(e.getMessage());
             return arrestResponse;
         }
+        return arrestResponse;
+    }
+
+    
+    @NotNull
+    private ArrestResponse getArrestResponseWithErrors(BindingResult result, ArrestResponse arrestResponse) {
+        arrestResponse.setResultCode((Integer.parseInt(ErrorsPropertiesEnum.BUSINESS_ERROR.getPath())));
+        arrestResponse.setDecryption( "Field: \"" +
+                result.getFieldErrors().stream().map(FieldError::getRejectedValue).collect(Collectors.toList())
+                +  "\" " +
+                result.getFieldErrors().stream().map(FieldError::getDefaultMessage).collect(Collectors.toList())
+                + " \n " + result.getTarget());
         return arrestResponse;
     }
 }

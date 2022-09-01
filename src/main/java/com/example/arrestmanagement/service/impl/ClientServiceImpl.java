@@ -5,7 +5,8 @@ import com.example.arrestmanagement.dto.IdentDocDTO;
 import com.example.arrestmanagement.entity.Client;
 import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ClientService;
-import com.example.arrestmanagement.validation.handling.ClientsIdentDoc;
+import com.example.arrestmanagement.validation.handling.ClientIdentDoc;
+import com.example.arrestmanagement.validation.handling.ClientsIdentDocTransformer;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import java.util.Optional;
 public class ClientServiceImpl implements ClientService  {
     @Autowired
     private final ClientRepository clientRepository;
+
+    @Autowired
+    private final ClientsIdentDocTransformer clientsIdentDocTransformer;
 
     @Override
     public Optional<Client> findClient(Client client) {
@@ -36,15 +40,15 @@ public class ClientServiceImpl implements ClientService  {
     }
 
 
-    public Client getClient(ArrestRequest arrestRequest) {
+    public Client getClientFromRequest(ArrestRequest arrestRequest) {
         Client client = new Client();
         client.setFirstName(arrestRequest.getFirstName());
         client.setLastName(arrestRequest.getLastname());
 
-        IdentDocDTO identDocDTO = new ClientsIdentDoc().createClientsFormat(arrestRequest);
+        ClientIdentDoc clientIdentDoc = clientsIdentDocTransformer.createClientsFormat(arrestRequest);
 
-        client.setNumSeries(identDocDTO.getNumberSeries());
-        client.setDulType(identDocDTO.getType());
+        client.setNumSeries(clientIdentDoc.getNumSeries());
+        client.setDulType(clientIdentDoc.getDulType());
 
         return saveNewClientOrGetFromDB(client);
     }

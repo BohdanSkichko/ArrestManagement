@@ -4,11 +4,12 @@ import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @ToString
-
+@Component
 public class FNSPassport {
     private static final String PATTERN = "\\d{2} \\d{2} [A-Z]{6}";
     private String format;
