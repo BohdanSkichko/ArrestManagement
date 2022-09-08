@@ -1,6 +1,7 @@
 package com.example.arrestmanagement.validation.handling.constraint;
 
-import com.example.arrestmanagement.helper.PassportsCodPropertiesEnum;
+import com.example.arrestmanagement.helper.ArrestFNSPassportCodeEnum;
+import com.example.arrestmanagement.helper.ArrestFSSPPassportCodeEnum;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,9 +16,7 @@ public class IdentDocTypeValidator implements ConstraintValidator<IdentDocTypeCo
 
     @Override
     public boolean isValid(Integer type, ConstraintValidatorContext constraintValidatorContext) {
-        return type == Integer.parseInt(PassportsCodPropertiesEnum.FNS_PASSPORT.getPath()) ||
-                type == Integer.parseInt(PassportsCodPropertiesEnum.FNS_FOREIGN_PASSPORT.getPath()) ||
-                type == Integer.parseInt(PassportsCodPropertiesEnum.FSSP_PASSPORT.getPath()) ||
-                type == Integer.parseInt(PassportsCodPropertiesEnum.FSSP_FOREIGN_PASSPORT.getPath());
+        return ArrestFSSPPassportCodeEnum.isCorrectCode(type) ||
+                ArrestFNSPassportCodeEnum.isCorrectCode(type);
     }
 }

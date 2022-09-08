@@ -3,10 +3,11 @@ package com.example.arrestmanagement.service.impl;
 import com.example.arrestmanagement.dto.ArrestRequest;
 import com.example.arrestmanagement.dto.IdentDocDTO;
 import com.example.arrestmanagement.entity.Client;
+import com.example.arrestmanagement.helper.client.passport.service.ArrestDocType;
+import com.example.arrestmanagement.helper.client.passport.service.DocTypeDictionary;
 import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ClientService;
-import com.example.arrestmanagement.validation.handling.ClientIdentDoc;
-import com.example.arrestmanagement.validation.handling.ClientsIdentDocTransformer;
+import com.example.arrestmanagement.helper.client.passport.service.ClientIdentDoc;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,11 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ClientServiceImpl implements ClientService  {
+public class ClientServiceImpl implements ClientService {
     @Autowired
     private final ClientRepository clientRepository;
-
     @Autowired
-    private final ClientsIdentDocTransformer clientsIdentDocTransformer;
+    private final ArrestDocType arrestDocType;
 
     @Override
     public Optional<Client> findClient(Client client) {
@@ -44,12 +44,9 @@ public class ClientServiceImpl implements ClientService  {
         Client client = new Client();
         client.setFirstName(arrestRequest.getFirstName());
         client.setLastName(arrestRequest.getLastname());
-
-        ClientIdentDoc clientIdentDoc = clientsIdentDocTransformer.createClientsFormat(arrestRequest);
-
+        ClientIdentDoc clientIdentDoc = createClientsFormatFromRequest(arrestRequest);
         client.setNumSeries(clientIdentDoc.getNumSeries());
         client.setDulType(clientIdentDoc.getDulType());
-
         return saveNewClientOrGetFromDB(client);
     }
 
@@ -62,6 +59,19 @@ public class ClientServiceImpl implements ClientService  {
         return findClient(client).get();
 
     }
+
+    @Override
+    public ClientIdentDoc createClientsFormatFromRequest(ArrestRequest arrestRequest) {
+        IdentDocDTO identDocDT0 = arrestRequest.getIdentDocDTO();
+        String numSeries = identDocDT0.getNumberSeries();
+        int code = arrestRequest.getOrganCode();
+        int type = identDocDT0.getType();
+        arrestDocType.setType(type);
+        arrestDocType.setNumSeries(numSeries);
+        arrestDocType.setOrganCode(code);
+        return DocTypeDictionary.getClientIdentDocFromArrest(arrestDocType);
+    }
+
 
     @Override
     public Client updateClient(Client client) {

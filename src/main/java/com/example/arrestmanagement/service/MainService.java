@@ -44,11 +44,11 @@ public class MainService {
                 arrestResponse.setDecryption("success");
             }
         } catch (NoSuchArrestException | ArrestIncorrectException e) {
-            arrestResponse.setResultCode(Integer.parseInt(ErrorsPropertiesEnum.BUSINESS_ERROR.getPath()));
+            arrestResponse.setResultCode(ErrorsPropertiesEnum.BUSINESS_ERROR.getCode());
             arrestResponse.setDecryption(e.getMessage());
             return arrestResponse;
         } catch (Exception e) {
-            arrestResponse.setResultCode(Integer.parseInt(ErrorsPropertiesEnum.TECHNICAL_ERROR.getPath()));
+            arrestResponse.setResultCode(ErrorsPropertiesEnum.TECHNICAL_ERROR.getCode());
             arrestResponse.setDecryption(e.getMessage());
             return arrestResponse;
         }
@@ -56,9 +56,9 @@ public class MainService {
     }
 
     
-    @NotNull
+
     private ArrestResponse getArrestResponseWithErrors(BindingResult result, ArrestResponse arrestResponse) {
-        arrestResponse.setResultCode((Integer.parseInt(ErrorsPropertiesEnum.BUSINESS_ERROR.getPath())));
+        arrestResponse.setResultCode(ErrorsPropertiesEnum.BUSINESS_ERROR.getCode());
         arrestResponse.setDecryption( "Field: \"" +
                 result.getFieldErrors().stream().map(FieldError::getRejectedValue).collect(Collectors.toList())
                 +  "\" " +

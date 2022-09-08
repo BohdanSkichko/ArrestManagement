@@ -1,11 +1,15 @@
 package com.example.arrestmanagement.dto;
 
+import com.example.arrestmanagement.validation.handling.constraint.DateConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.validation.constraints.*;
 import java.sql.Date;
+
 
 @Getter
 @Setter
@@ -16,7 +20,9 @@ import java.sql.Date;
 
 public class ArrestDTO {
 
-    @JsonProperty("DocDate") //
+    @DateConstraint
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonProperty("DocDate")
     private Date docDate;
 
 
@@ -28,7 +34,6 @@ public class ArrestDTO {
     @Size(max = 1000, message = "max 1000 symbols")
     @JsonProperty("Purpose")
     private String purpose;
-
 
 
     @Min(value = 0, message = "the amount must be only positive")

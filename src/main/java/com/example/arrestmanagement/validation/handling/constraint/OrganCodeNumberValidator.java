@@ -1,8 +1,8 @@
 package com.example.arrestmanagement.validation.handling.constraint;
-import com.example.arrestmanagement.helper.PassportsCodPropertiesEnum;
+import com.example.arrestmanagement.helper.ArrestOrganCodeEnum;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
+import java.util.Objects;
 
 
 public class OrganCodeNumberValidator implements
@@ -15,7 +15,6 @@ public class OrganCodeNumberValidator implements
 
     @Override
     public boolean isValid(Integer codeNumber, ConstraintValidatorContext constraintValidatorContext) {
-        return codeNumber == Integer.parseInt(PassportsCodPropertiesEnum.FSSP.getPath()) ||
-                codeNumber == Integer.parseInt(PassportsCodPropertiesEnum.FNS.getPath());
+        return ArrestOrganCodeEnum.isCorrectCode(codeNumber);
     }
 }

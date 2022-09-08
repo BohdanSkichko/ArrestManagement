@@ -2,13 +2,12 @@ package com.example.arrestmanagement.dto;
 
 import com.example.arrestmanagement.validation.handling.constraint.DateConstraint;
 import com.example.arrestmanagement.validation.handling.constraint.IdentDocTypeConstraint;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Date;
 
-import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -27,11 +26,11 @@ public class IdentDocDTO {
     @JsonProperty("NumberSeries")
     private String numberSeries;
 
+
     @DateConstraint
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonProperty("IssueDate")
     private Date issueDate;
-
-
 
 
 }

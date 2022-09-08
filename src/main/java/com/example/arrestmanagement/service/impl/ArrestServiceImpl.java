@@ -10,18 +10,20 @@ import com.example.arrestmanagement.exception.handling.NoSuchArrestException;
 import com.example.arrestmanagement.helper.OperationPropertiesEnum;
 import com.example.arrestmanagement.repository.ArrestRepository;
 import com.example.arrestmanagement.service.ArrestService;
+import com.example.arrestmanagement.validation.handling.constraint.DateValidatorRegex;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import java.util.Optional;
+
 
 @AllArgsConstructor
 @Service
 public class ArrestServiceImpl implements ArrestService {
     @Autowired
     private final ArrestRepository arrestRepository;
+    @Autowired
+    private final DateValidatorRegex dateValidatorRegex;
 
     @Override
     public Arrest updateArrest(Arrest arrest) {
@@ -62,7 +64,7 @@ public class ArrestServiceImpl implements ArrestService {
 
     public ArrestResponse editArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
-        if (arrestDTO.getOperation() != Integer.parseInt(OperationPropertiesEnum.EDIT_ARREST.getPath())) {
+        if (arrestDTO.getOperation() != OperationPropertiesEnum.EDIT_ARREST.getCode()) {
             return arrestResponse;
         }
         Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
@@ -86,7 +88,7 @@ public class ArrestServiceImpl implements ArrestService {
 
     public ArrestResponse canceledArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
-        if (arrestDTO.getOperation() != Integer.parseInt(OperationPropertiesEnum.CANCELED_ARREST.getPath())) {
+        if (arrestDTO.getOperation() != OperationPropertiesEnum.CANCELED_ARREST.getCode()) {
             return arrestResponse;
         }
         Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
@@ -103,7 +105,7 @@ public class ArrestServiceImpl implements ArrestService {
 
     public ArrestResponse createArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
-        if (arrestDTO.getOperation() != Integer.parseInt(OperationPropertiesEnum.FIRST_OPERATION.getPath())) {
+        if (arrestDTO.getOperation() != OperationPropertiesEnum.FIRST_OPERATION.getCode()) {
             return arrestResponse;
         }
         Optional<Arrest> findArrest = findByClientAndByDocNum(client, arrestRequest);

@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.validation.handling;
+package com.example.arrestmanagement.helper.client.passport.service;
 
 import lombok.*;
 import org.springframework.stereotype.Component;

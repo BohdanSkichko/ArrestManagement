@@ -2,6 +2,7 @@ package com.example.arrestmanagement.service;
 
 import com.example.arrestmanagement.dto.ArrestRequest;
 import com.example.arrestmanagement.entity.Client;
+import com.example.arrestmanagement.helper.client.passport.service.ClientIdentDoc;
 import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,6 @@ public interface ClientService {
     Optional<Client> findClient(Client client);
 
     Client saveNewClientOrGetFromDB(Client client);
+    ClientIdentDoc createClientsFormatFromRequest (ArrestRequest arrestRequest);
 }
 

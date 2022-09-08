@@ -1,19 +1,15 @@
 package com.example.arrestmanagement.helper;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum ErrorsPropertiesEnum {
-    TECHNICAL_ERROR("TECHNICAL_ERROR"),
-    BUSINESS_ERROR("BUSINESS_ERROR"),
+    TECHNICAL_ERROR(3),
+    BUSINESS_ERROR(5),
     ;
-    private final String path;
-
-    ErrorsPropertiesEnum(String path) {
-        this.path = path;
-    }
-
-
-    public String getPath() {
-        return (PropertiesReader.getProperties(this.path));
-    }
+    private final int code;
 
 
 }

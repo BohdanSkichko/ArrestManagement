@@ -1,20 +1,16 @@
 package com.example.arrestmanagement.helper;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum OperationPropertiesEnum {
-    FIRST_OPERATION("FIRST_OPERATION"),
-    EDIT_ARREST("EDIT_ARREST"),
-    CANCELED_ARREST("CANCELED_ARREST"),
+    FIRST_OPERATION(1),
+    EDIT_ARREST(2),
+    CANCELED_ARREST(3),
     ;
-    private final String path;
-
-    OperationPropertiesEnum(String path) {
-        this.path = path;
-    }
-
-
-    public String getPath() {
-        return (PropertiesReader.getProperties(this.path));
-    }
+    private final int code;
 
 
 }

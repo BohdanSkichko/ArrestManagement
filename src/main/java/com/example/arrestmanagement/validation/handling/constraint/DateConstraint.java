@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DateConstraint {
-    String message() default "date pattern yyyy-mm-dd";
+    String message() default "date pattern yyyy-MM-dd";
 
     Class<?>[] groups() default {};
 
