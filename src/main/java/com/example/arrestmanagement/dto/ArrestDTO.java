@@ -27,7 +27,7 @@ public class ArrestDTO {
 
 
     @Size(max = 30, message = "max 30 symbols")
-    @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can use only: A-Z a-z 0-9 # № -")
+    @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can only use: A-Z a-z 0-9 # № -")
     @JsonProperty("DocNum")
     private String docNum;
 
@@ -40,7 +40,7 @@ public class ArrestDTO {
     @JsonProperty("Amount")
     private Long amount;
 
-    @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can use only: A-Z a-z 0-9 # № -")
+    @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can only use: A-Z a-z 0-9 # № -")
     @JsonProperty("RefDocNum")
     private String refDocNum;
 

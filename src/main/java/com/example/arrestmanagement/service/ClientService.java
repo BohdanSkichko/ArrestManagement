@@ -15,7 +15,6 @@ public interface ClientService {
     @Transient
     Client saveClient(Client client);
 
-    Client updateClient(Client client);
 
     Client getClientFromRequest(ArrestRequest arrestRequest);
 

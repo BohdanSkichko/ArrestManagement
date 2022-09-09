@@ -71,11 +71,4 @@ public class ClientServiceImpl implements ClientService {
         arrestDocType.setOrganCode(code);
         return DocTypeDictionary.getClientIdentDocFromArrest(arrestDocType);
     }
-
-
-    @Override
-    public Client updateClient(Client client) {
-        return clientRepository.save(client);
-    }
-
 }

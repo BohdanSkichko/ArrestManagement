@@ -1,9 +1,12 @@
 package com.example.arrestmanagement.helper.client.passport.service;
 
 
+import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import com.example.arrestmanagement.helper.ArrestOrganCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.arrestmanagement.helper.ArrestOrganCodeEnum.*;
 import static com.example.arrestmanagement.helper.client.passport.service.InnerDocType.*;
@@ -11,10 +14,10 @@ import static com.example.arrestmanagement.helper.client.passport.service.InnerD
 @AllArgsConstructor
 @Getter
 public enum DocTypeDictionary {
-    FNS_PASSPORT(FNS, PASSPORT, 21, "\\d{2} \\d{2} [A-Z]{6}"),
-    FNS_FOREIGN_PASSPORT(FNS, FOREIGN_PASSPORT, 22, "\\d{2} [A-Z]{6}"),
-    FSSP_PASSPORT(FSSP, PASSPORT, 70, "[A-Z]{6}-\\d{4}"),
-    FSSP_FOREIGN_PASSPORT(FSSP, FOREIGN_PASSPORT, 80, "[A-Z]{6}\\.\\d{2}");
+    FNS_PASSPORT(FNS, PASSPORT, 21, "\\d{2} \\d{2} [0-9]{6}"),
+    FNS_FOREIGN_PASSPORT(FNS, FOREIGN_PASSPORT, 22, "\\d{2} [0-9]{6}"),
+    FSSP_PASSPORT(FSSP, PASSPORT, 70, "[0-9]{6}-\\d{4}"),
+    FSSP_FOREIGN_PASSPORT(FSSP, FOREIGN_PASSPORT, 80, "[0-9]{6}\\.\\d{2}");
 
     private ArrestOrganCodeEnum OrganCode;
     private InnerDocType InnerDocType;
@@ -29,31 +32,52 @@ public enum DocTypeDictionary {
                     arrestDocType.getNumSeries().matches(value.getOuterSerial())
             ) {
                 clientIdentDoc.setDulType(value.getInnerDocType().code);
-                clientIdentDoc.setNumSeries(ClientPassportTransformer.convertToClientFormat(arrestDocType.getNumSeries()));
+//                clientIdentDoc.setNumSeries(ClientPassportTransformer.convertToClientFormat(arrestDocType.getNumSeries()));
+                clientIdentDoc.setNumSeries(ClientNumberPassportTransformer.convertToClientFormat(arrestDocType.getNumSeries()));
                 return clientIdentDoc;
             }
         }
-        throw new IllegalArgumentException("illegal information between Type, DocNum or OrganCode");
+        throw new ArrestIncorrectException("Incorrect information between Type, DocNum or OrganCode");
     }
 
 
     static class ClientPassportTransformer {
         static String convertToClientFormat(String format) {
-            String justLettersAndDigits = format.replaceAll("\\.\\- ", "");
-            StringBuilder stringBuilder = new StringBuilder();
-            char[] chars = justLettersAndDigits.toCharArray();
-            for (Character character : chars) {
+            String justLettersAndDigits = format.replaceAll("[\\.\\-\\ ]", "");
+            StringBuilder clientPassport = new StringBuilder();
+            List<Character> characters = justLettersAndDigits.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+            for (Character character : characters) {
                 if (Character.isAlphabetic(character)) {
-                    stringBuilder.append(character);
+                    clientPassport.append(character);
                 }
             }
-            stringBuilder.append(" ");
-            for (Character character : chars) {
-                if (Character.isDigit(character)) {
-                    stringBuilder.append(character);
+            int numberDigit = 0;
+            for (Character character : characters) {
+                if (Character.isDigit(character) && numberDigit % 2 != 0) {
+                    clientPassport.append(character);
+                    numberDigit++;
+                } else if (Character.isDigit(character)) {
+                    clientPassport.append(" ");
+                    clientPassport.append(character);
+                    numberDigit++;
                 }
             }
-            return stringBuilder.toString();
+
+            return clientPassport.toString();
+        }
+    }
+
+    static class ClientNumberPassportTransformer {
+        static String convertToClientFormat(String numSeries) {
+            String s = numSeries.replaceAll("[\\.\\-]", " ");
+            String passportSerial = s.replaceAll("[0-9]{6}","").trim();
+            String passportNumber = s.replace(passportSerial,"").trim();
+            if (passportSerial.length() == 4) {
+                StringBuilder passportSer = new StringBuilder(passportSerial);
+                passportSer.insert(2, " ");
+                return passportNumber + " " + passportSer;
+            }
+         return passportNumber + " " + passportSerial;
         }
     }
 }
