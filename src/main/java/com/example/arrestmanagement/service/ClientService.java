@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Service
 
-public interface ClientService {
+public interface ClientService  {
 
-    @Transient
+
     Client saveClient(Client client);
 
 

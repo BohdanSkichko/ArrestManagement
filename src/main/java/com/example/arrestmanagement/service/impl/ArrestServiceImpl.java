@@ -9,12 +9,17 @@ import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
 import com.example.arrestmanagement.exception.handling.NoSuchArrestException;
 import com.example.arrestmanagement.helper.OperationPropertiesEnum;
 import com.example.arrestmanagement.repository.ArrestRepository;
+import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ArrestService;
-import com.example.arrestmanagement.validation.handling.constraint.DateValidatorRegex;
+import com.example.arrestmanagement.service.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
+
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @AllArgsConstructor
@@ -22,8 +27,8 @@ import java.util.Optional;
 public class ArrestServiceImpl implements ArrestService {
     @Autowired
     private final ArrestRepository arrestRepository;
-    @Autowired
-    private final DateValidatorRegex dateValidatorRegex;
+//    @Autowired
+//    private final ClientRepository clientRepository;
 
     @Override
     public Arrest updateArrest(Arrest arrest) {
@@ -52,6 +57,7 @@ public class ArrestServiceImpl implements ArrestService {
     public Optional<Arrest> findByClientAndByDocNum(Client client, ArrestRequest arrestRequest) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         String docNum = arrestDTO.getDocNum();
+//        Client client1 = new ClientServiceImpl(clientRepository).getClientFromRequest(arrestRequest);
         return arrestRepository.findArrestByClientAndDocNum(client, docNum);
     }
 
@@ -119,5 +125,4 @@ public class ArrestServiceImpl implements ArrestService {
         arrestResponse.setId(arrest.getId());
         return arrestResponse;
     }
-
 }

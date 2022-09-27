@@ -3,8 +3,6 @@ package com.example.arrestmanagement.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -13,6 +11,8 @@ import javax.validation.constraints.Pattern;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
+
+
 public class ArrestResponse {
     @JsonProperty("ArrestId")
     private Long id;
@@ -23,4 +23,5 @@ public class ArrestResponse {
 
     @JsonProperty("ResultText")
     private String decryption;
+
 }

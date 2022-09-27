@@ -1,7 +1,6 @@
 package com.example.arrestmanagement.entity;
 
 
-import com.example.arrestmanagement.validation.handling.constraint.DateConstraint;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +25,6 @@ public class Arrest {
     @Column(name = "id")
     private Long id;
 
-    @DateConstraint
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "doc_date")
     private Date docDate;
