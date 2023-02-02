@@ -27,8 +27,6 @@ import java.util.stream.Stream;
 public class ArrestServiceImpl implements ArrestService {
     @Autowired
     private final ArrestRepository arrestRepository;
-//    @Autowired
-//    private final ClientRepository clientRepository;
 
     @Override
     public Arrest updateArrest(Arrest arrest) {
@@ -57,7 +55,6 @@ public class ArrestServiceImpl implements ArrestService {
     public Optional<Arrest> findByClientAndByDocNum(Client client, ArrestRequest arrestRequest) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         String docNum = arrestDTO.getDocNum();
-//        Client client1 = new ClientServiceImpl(clientRepository).getClientFromRequest(arrestRequest);
         return arrestRepository.findArrestByClientAndDocNum(client, docNum);
     }
 

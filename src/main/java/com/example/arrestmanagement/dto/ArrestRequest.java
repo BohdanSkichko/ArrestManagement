@@ -20,7 +20,6 @@ public class ArrestRequest {
     @JsonProperty("RequestId")
     private String requestID;
 
-
     @Size(max = 100, message = "max 100 symbols")
     @JsonProperty("LastName")
     private String lastname;

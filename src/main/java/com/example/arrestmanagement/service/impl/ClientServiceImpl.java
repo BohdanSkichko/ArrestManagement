@@ -9,12 +9,13 @@ import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ClientService;
 import com.example.arrestmanagement.helper.client.passport.service.ClientIdentDoc;
 import lombok.AllArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.KeyStore;
 import java.util.*;
-import java.util.stream.Collectors;
+
+
 
 @Service
 @AllArgsConstructor
@@ -73,4 +74,5 @@ public class ClientServiceImpl implements ClientService {
         arrestDocType.setOrganCode(code);
         return DocTypeDictionary.getClientIdentDocFromArrest(arrestDocType);
     }
+
 }

@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 
+
 @Getter
 @Setter
 @ToString
@@ -72,3 +73,4 @@ public class Arrest {
         }
     }
 }
+

@@ -17,7 +17,6 @@ public class ArrestResponse {
     @JsonProperty("ArrestId")
     private Long id;
 
-
     @JsonProperty("ResultCode")
     private int resultCode;
 
