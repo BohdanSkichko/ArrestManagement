@@ -1,15 +1,16 @@
-package com.example.arrestmanagement.helper.client.passport.service;
+package com.example.arrestmanagement.dictionary;
 
 
-import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
-import com.example.arrestmanagement.helper.ArrestOrganCodeEnum;
+import com.example.arrestmanagement.exception.ArrestIncorrectException;
+import com.example.arrestmanagement.parameter.InnerIdentDoc;
+import com.example.arrestmanagement.parameter.OuterIdentDoc;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.arrestmanagement.helper.ArrestOrganCodeEnum.*;
-import static com.example.arrestmanagement.helper.client.passport.service.InnerDocType.*;
+import static com.example.arrestmanagement.dictionary.ArrestOrganCodeEnum.*;
+import static com.example.arrestmanagement.dictionary.InnerDocType.*;
 
 @AllArgsConstructor
 @Getter
@@ -19,25 +20,27 @@ public enum DocTypeDictionary {
     FSSP_PASSPORT(FSSP, PASSPORT, 70, "[0-9]{6}-\\d{4}"),
     FSSP_FOREIGN_PASSPORT(FSSP, FOREIGN_PASSPORT, 80, "[0-9]{6}\\.\\d{2}");
 
-    private ArrestOrganCodeEnum OrganCode;
-    private InnerDocType InnerDocType;
-    private Integer outerCode;
-    private String outerSerial;
+    private final ArrestOrganCodeEnum OrganCode;
+    private final InnerDocType InnerDocType;
+    private final Integer outerCode;
+    private final String outerSerial;
 
-    public static ClientIdentDoc getClientIdentDocFromArrest(ArrestDocType arrestDocType) {
-        ClientIdentDoc clientIdentDoc = new ClientIdentDoc();
-        for (DocTypeDictionary value : DocTypeDictionary.values()) {
-            if (value.getOrganCode().getCode() == (arrestDocType.getOrganCode()) &&
-                    value.getOuterCode() == arrestDocType.getType() &&
-                    arrestDocType.getNumSeries().matches(value.getOuterSerial())
-            ) {
-                clientIdentDoc.setDulType(value.getInnerDocType().code);
-//                clientIdentDoc.setNumSeries(ClientPassportTransformer.convertToClientFormat(arrestDocType.getNumSeries()));
-                clientIdentDoc.setNumSeries(ClientNumberPassportTransformer.convertToClientFormat(arrestDocType.getNumSeries()));
-                return clientIdentDoc;
+    public static InnerIdentDoc getClientIdentDocFromArrest(OuterIdentDoc outerIdentDoc) {
+        InnerIdentDoc innerIdentDoc = new InnerIdentDoc();
+        for (DocTypeDictionary dictionaryElement : DocTypeDictionary.values()) {
+            if (isDocTypeFits(outerIdentDoc, dictionaryElement)) {
+                innerIdentDoc.setDulType(dictionaryElement.getInnerDocType().code);
+                innerIdentDoc.setNumSeries(ClientNumberPassportTransformer.convertToClientFormat(outerIdentDoc.getNumSeries()));
+                return innerIdentDoc;
             }
         }
-        throw new ArrestIncorrectException("Incorrect information between Type, DocNum or OrganCode");
+        throw new ArrestIncorrectException("Type, DocNum or OrganCode Incorrect");
+    }
+
+    private static boolean isDocTypeFits(OuterIdentDoc outerIdentDoc, DocTypeDictionary dictionary) {
+        return dictionary.getOrganCode().getCode() == (outerIdentDoc.getOrganCode()) &&
+                dictionary.getOuterCode() == outerIdentDoc.getType() &&
+                outerIdentDoc.getNumSeries().matches(dictionary.getOuterSerial());
     }
 
 

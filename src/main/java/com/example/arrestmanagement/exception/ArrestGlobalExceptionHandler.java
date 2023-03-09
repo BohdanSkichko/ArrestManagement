@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.exception.handling;
+package com.example.arrestmanagement.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ArrestGlobalExceptionHandler {
     @ExceptionHandler
+    //todo remove or change to ResponseEntity<ArrestResponse>
     public ResponseEntity<ArrestIncorrectData> handleException(
             NoSuchArrestException arrestException) {
         ArrestIncorrectData data = new ArrestIncorrectData();

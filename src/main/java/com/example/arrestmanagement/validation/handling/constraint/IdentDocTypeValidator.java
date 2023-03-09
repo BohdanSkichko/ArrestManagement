@@ -1,7 +1,7 @@
 package com.example.arrestmanagement.validation.handling.constraint;
 
-import com.example.arrestmanagement.helper.ArrestFNSPassportCodeEnum;
-import com.example.arrestmanagement.helper.ArrestFSSPPassportCodeEnum;
+import com.example.arrestmanagement.dictionary.ArrestFNSPassportCodeEnum;
+import com.example.arrestmanagement.dictionary.ArrestFSSPPassportCodeEnum;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

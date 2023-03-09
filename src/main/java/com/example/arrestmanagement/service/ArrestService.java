@@ -9,13 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+//todo fix all warnings (Code -> Inspect Code)
 public interface ArrestService {
 
 
     Arrest updateArrest(Arrest arrest);
     Arrest saveArrest(Arrest arrest);
 
-    ArrestResponse canceledArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse);
+    ArrestResponse cancelArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse);
 
     ArrestResponse createArrest (Client client,ArrestRequest arrestRequest, ArrestResponse arrestResponse);
 

@@ -1,5 +1,6 @@
-package com.example.arrestmanagement.exception.handling;
+package com.example.arrestmanagement.exception;
 
+//todo remove
 public class ArrestIncorrectData {
     private String info;
         public String getInfo() {

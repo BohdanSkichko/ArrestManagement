@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.helper.client.passport.service;
+package com.example.arrestmanagement.dictionary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

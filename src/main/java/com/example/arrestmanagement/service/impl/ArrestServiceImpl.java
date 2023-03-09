@@ -5,13 +5,12 @@ import com.example.arrestmanagement.dto.ArrestRequest;
 import com.example.arrestmanagement.dto.ArrestResponse;
 import com.example.arrestmanagement.entity.Arrest;
 import com.example.arrestmanagement.entity.Client;
-import com.example.arrestmanagement.exception.handling.ArrestIncorrectException;
-import com.example.arrestmanagement.exception.handling.NoSuchArrestException;
-import com.example.arrestmanagement.helper.OperationPropertiesEnum;
+import com.example.arrestmanagement.exception.ArrestIncorrectException;
+import com.example.arrestmanagement.exception.NoSuchArrestException;
+import com.example.arrestmanagement.dictionary.OperationPropertiesEnum;
 import com.example.arrestmanagement.repository.ArrestRepository;
 import com.example.arrestmanagement.service.ArrestService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,7 +19,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class ArrestServiceImpl implements ArrestService {
-    @Autowired
+
     private final ArrestRepository arrestRepository;
 
     @Override
@@ -33,7 +32,7 @@ public class ArrestServiceImpl implements ArrestService {
         return arrestRepository.save(arrest);
     }
 
-
+    @Override
     public Optional<Arrest> getArrestFromRequest(ArrestRequest arrestRequest) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         Arrest arrest = new Arrest();
@@ -53,6 +52,7 @@ public class ArrestServiceImpl implements ArrestService {
         return arrestRepository.findArrestByClientAndDocNum(client, docNum);
     }
 
+    @Override
     public Optional<Arrest> findByClientAndByRefDocNum(Client client, ArrestRequest arrestRequest) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         String refDocNum = arrestDTO.getRefDocNum();
@@ -60,6 +60,7 @@ public class ArrestServiceImpl implements ArrestService {
     }
 
 
+    @Override
     public ArrestResponse editArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         if (arrestDTO.getOperation() != OperationPropertiesEnum.EDIT_ARREST.getCode()) {
@@ -84,7 +85,8 @@ public class ArrestServiceImpl implements ArrestService {
 
     }
 
-    public ArrestResponse canceledArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
+    @Override
+    public ArrestResponse cancelArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         if (arrestDTO.getOperation() != OperationPropertiesEnum.CANCELED_ARREST.getCode()) {
             return arrestResponse;
@@ -101,6 +103,7 @@ public class ArrestServiceImpl implements ArrestService {
         return arrestResponse;
     }
 
+    @Override
     public ArrestResponse createArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
         ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
         if (arrestDTO.getOperation() != OperationPropertiesEnum.FIRST_OPERATION.getCode()) {
@@ -108,7 +111,7 @@ public class ArrestServiceImpl implements ArrestService {
         }
         Optional<Arrest> findArrest = findByClientAndByDocNum(client, arrestRequest);
         if (findArrest.isPresent()) {
-            throw new ArrestIncorrectException("this arrest is already present");
+            throw new ArrestIncorrectException("This arrest is already present");
         }
         Arrest arrest = getArrestFromRequest(arrestRequest).get();
         arrest.setClient(client);

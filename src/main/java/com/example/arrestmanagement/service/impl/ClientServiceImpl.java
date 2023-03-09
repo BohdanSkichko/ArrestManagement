@@ -3,11 +3,11 @@ package com.example.arrestmanagement.service.impl;
 import com.example.arrestmanagement.dto.ArrestRequest;
 import com.example.arrestmanagement.dto.IdentDocDTO;
 import com.example.arrestmanagement.entity.Client;
-import com.example.arrestmanagement.helper.client.passport.service.ArrestDocType;
-import com.example.arrestmanagement.helper.client.passport.service.DocTypeDictionary;
+import com.example.arrestmanagement.parameter.OuterIdentDoc;
+import com.example.arrestmanagement.dictionary.DocTypeDictionary;
 import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ClientService;
-import com.example.arrestmanagement.helper.client.passport.service.ClientIdentDoc;
+import com.example.arrestmanagement.parameter.InnerIdentDoc;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +46,9 @@ public class ClientServiceImpl implements ClientService {
         Client client = new Client();
         client.setFirstName(arrestRequest.getFirstName());
         client.setLastName(arrestRequest.getLastname());
-        ClientIdentDoc clientIdentDoc = createClientsFormatFromRequest(arrestRequest);
-        client.setNumSeries(clientIdentDoc.getNumSeries());
-        client.setDulType(clientIdentDoc.getDulType());
+        InnerIdentDoc innerIdentDoc = createClientsFormatFromRequest(arrestRequest);
+        client.setNumSeries(innerIdentDoc.getNumSeries());
+        client.setDulType(innerIdentDoc.getDulType());
         return saveNewClientOrGetFromDB(client);
     }
 
@@ -63,16 +63,16 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientIdentDoc createClientsFormatFromRequest(ArrestRequest arrestRequest) {
+    public InnerIdentDoc createClientsFormatFromRequest(ArrestRequest arrestRequest) {
         IdentDocDTO identDocDT0 = arrestRequest.getIdentDocDTO();
         String numSeries = identDocDT0.getNumberSeries();
         int code = arrestRequest.getOrganCode();
         int type = identDocDT0.getType();
-        ArrestDocType arrestDocType = new ArrestDocType();
-        arrestDocType.setType(type);
-        arrestDocType.setNumSeries(numSeries);
-        arrestDocType.setOrganCode(code);
-        return DocTypeDictionary.getClientIdentDocFromArrest(arrestDocType);
+        OuterIdentDoc outerIdentDoc = new OuterIdentDoc();
+        outerIdentDoc.setType(type);
+        outerIdentDoc.setNumSeries(numSeries);
+        outerIdentDoc.setOrganCode(code);
+        return DocTypeDictionary.getClientIdentDocFromArrest(outerIdentDoc);
     }
 
 }

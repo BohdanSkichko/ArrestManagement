@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("/api")
 
-public class MainController {
+public class ArrestController {
 
     @Autowired
     private final MainService mainService;
 
-    @PostMapping("/managerarrest")
+    @PostMapping("/managearrest")
     public ArrestResponse putRequest(@Validated @RequestBody ArrestRequest request, BindingResult result) {
         return mainService.processRequest(request, result);
     }

@@ -43,9 +43,10 @@ public class Arrest {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
+    //TODO store as int
     private Status status = Status.ACTING;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "client_id")
     private Client client;
 

@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.exception.handling;
+package com.example.arrestmanagement.exception;
 
 public class NoSuchArrestException extends RuntimeException {
 

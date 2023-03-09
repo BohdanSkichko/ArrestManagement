@@ -32,6 +32,8 @@ public class Client {
 
 
     @Column(name = "dul_type")
+    //todo make enum
+    //todo remove cyrillic abbreviations from whole project
     private int dulType;
 
     @Column(name = "numSeries", length = 12)
@@ -41,11 +43,11 @@ public class Client {
     @Column(name = "birthday")
     private Date birthday;
 
-    @Column(name = "place_birth", length = 250)
+    @Column(name = "birth_place", length = 250)
     private String placeOfBirth;
 
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.PERSIST}, mappedBy = "client")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "client")
     private List<Arrest> arrests;
 
 

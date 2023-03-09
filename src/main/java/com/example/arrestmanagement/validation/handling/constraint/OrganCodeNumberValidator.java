@@ -1,8 +1,7 @@
 package com.example.arrestmanagement.validation.handling.constraint;
-import com.example.arrestmanagement.helper.ArrestOrganCodeEnum;
+import com.example.arrestmanagement.dictionary.ArrestOrganCodeEnum;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Objects;
 
 
 public class OrganCodeNumberValidator implements

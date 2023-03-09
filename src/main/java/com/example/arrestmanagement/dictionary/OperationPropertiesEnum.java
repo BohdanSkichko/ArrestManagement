@@ -1,4 +1,4 @@
-package com.example.arrestmanagement.helper;
+package com.example.arrestmanagement.dictionary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

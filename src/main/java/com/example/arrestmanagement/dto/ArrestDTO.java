@@ -25,7 +25,7 @@ public class ArrestDTO {
     @JsonProperty("DocDate")
     private Date docDate;
 
-
+    //todo make messages more polite
     @Size(max = 30, message = "max 30 symbols")
     @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can only use: A-Z a-z 0-9 # № -")
     @JsonProperty("DocNum")
@@ -36,7 +36,7 @@ public class ArrestDTO {
     private String purpose;
 
 
-    @Min(value = 0, message = "the amount must be only positive")
+    @Min(value = 0, message = "The amount must be positive")
     @JsonProperty("Amount")
     private Long amount;
 
