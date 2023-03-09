@@ -10,10 +10,10 @@ import com.example.arrestmanagement.exception.handling.NoSuchArrestException;
 import com.example.arrestmanagement.helper.OperationPropertiesEnum;
 import com.example.arrestmanagement.repository.ArrestRepository;
 import com.example.arrestmanagement.service.ArrestService;
-import com.example.arrestmanagement.validation.handling.constraint.DateValidatorRegex;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 
@@ -22,8 +22,6 @@ import java.util.Optional;
 public class ArrestServiceImpl implements ArrestService {
     @Autowired
     private final ArrestRepository arrestRepository;
-    @Autowired
-    private final DateValidatorRegex dateValidatorRegex;
 
     @Override
     public Arrest updateArrest(Arrest arrest) {
@@ -119,5 +117,4 @@ public class ArrestServiceImpl implements ArrestService {
         arrestResponse.setId(arrest.getId());
         return arrestResponse;
     }
-
 }

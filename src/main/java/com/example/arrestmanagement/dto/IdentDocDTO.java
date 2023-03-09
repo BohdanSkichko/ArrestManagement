@@ -1,6 +1,6 @@
 package com.example.arrestmanagement.dto;
 
-import com.example.arrestmanagement.validation.handling.constraint.DateConstraint;
+
 import com.example.arrestmanagement.validation.handling.constraint.IdentDocTypeConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -27,7 +27,6 @@ public class IdentDocDTO {
     private String numberSeries;
 
 
-    @DateConstraint
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonProperty("IssueDate")
     private Date issueDate;

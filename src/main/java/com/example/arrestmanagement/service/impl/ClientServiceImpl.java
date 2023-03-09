@@ -9,18 +9,20 @@ import com.example.arrestmanagement.repository.ClientRepository;
 import com.example.arrestmanagement.service.ClientService;
 import com.example.arrestmanagement.helper.client.passport.service.ClientIdentDoc;
 import lombok.AllArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
+
+
 
 @Service
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
     @Autowired
     private final ClientRepository clientRepository;
-    @Autowired
-    private final ArrestDocType arrestDocType;
+
 
     @Override
     public Optional<Client> findClient(Client client) {
@@ -66,9 +68,11 @@ public class ClientServiceImpl implements ClientService {
         String numSeries = identDocDT0.getNumberSeries();
         int code = arrestRequest.getOrganCode();
         int type = identDocDT0.getType();
+        ArrestDocType arrestDocType = new ArrestDocType();
         arrestDocType.setType(type);
         arrestDocType.setNumSeries(numSeries);
         arrestDocType.setOrganCode(code);
         return DocTypeDictionary.getClientIdentDocFromArrest(arrestDocType);
     }
+
 }
