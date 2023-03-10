@@ -29,7 +29,7 @@ public enum DocTypeDictionary {
         InnerIdentDoc innerIdentDoc = new InnerIdentDoc();
         for (DocTypeDictionary dictionaryElement : DocTypeDictionary.values()) {
             if (isDocTypeFits(outerIdentDoc, dictionaryElement)) {
-                innerIdentDoc.setDulType(dictionaryElement.getInnerDocType().code);
+                innerIdentDoc.setIdType(dictionaryElement.getInnerDocType().code);
                 innerIdentDoc.setNumSeries(ClientNumberPassportTransformer.convertToClientFormat(outerIdentDoc.getNumSeries()));
                 return innerIdentDoc;
             }
@@ -46,7 +46,7 @@ public enum DocTypeDictionary {
 
     static class ClientPassportTransformer {
         static String convertToClientFormat(String format) {
-            String justLettersAndDigits = format.replaceAll("[\\.\\-\\ ]", "");
+            String justLettersAndDigits = format.replaceAll("[.\\- ]", "");
             StringBuilder clientPassport = new StringBuilder();
             List<Character> characters = justLettersAndDigits.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
             for (Character character : characters) {
@@ -72,8 +72,8 @@ public enum DocTypeDictionary {
 
     static class ClientNumberPassportTransformer {
         static String convertToClientFormat(String numSeries) {
-            String s = numSeries.replaceAll("[\\.\\-]", " ");
-            String passportSerial = s.replaceAll("[0-9]{6}","").trim();
+            String s = numSeries.replaceAll("[.\\-]", " ");
+            String passportSerial = s.replaceAll("\\d{6}","").trim();
             String passportNumber = s.replace(passportSerial,"").trim();
             if (passportSerial.length() == 4) {
                 StringBuilder passportSer = new StringBuilder(passportSerial);

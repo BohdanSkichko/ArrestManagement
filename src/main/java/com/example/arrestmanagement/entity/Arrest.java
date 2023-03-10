@@ -43,7 +43,6 @@ public class Arrest {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    //TODO store as int
     private Status status = Status.ACTING;
 
     @ManyToOne(cascade = {CascadeType.PERSIST})

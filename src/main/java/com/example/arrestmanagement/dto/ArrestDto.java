@@ -19,19 +19,18 @@ import java.sql.Date;
 @AllArgsConstructor
 @RequiredArgsConstructor
 
-public class ArrestDTO {
+public class ArrestDto {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonProperty("DocDate")
     private Date docDate;
 
-    //todo make messages more polite
-    @Size(max = 30, message = "max 30 symbols")
+    @Size(max = 30, message = "This field supports a maximum of 30 characters")
     @Pattern(regexp = "[\\w\\d\\s-#№]+", message = "You can only use: A-Z a-z 0-9 # № -")
     @JsonProperty("DocNum")
     private String docNum;
 
-    @Size(max = 1000, message = "max 1000 symbols")
+    @Size(max = 1000, message = "This field supports a maximum of 10000 characters")
     @JsonProperty("Purpose")
     private String purpose;
 

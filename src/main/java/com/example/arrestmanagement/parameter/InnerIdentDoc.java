@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class InnerIdentDoc {
     private String numSeries;
-    private int dulType;
+    private int idType;
     public InnerIdentDoc() {
     }
 }

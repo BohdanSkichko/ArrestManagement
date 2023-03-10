@@ -1,13 +1,14 @@
 package com.example.arrestmanagement.exception;
 
-//todo remove
-public class ArrestIncorrectData {
+
+public class ArrestResponse {
     private String info;
-        public String getInfo() {
-        return info;
+
+    public ArrestResponse() {
     }
 
-    public ArrestIncorrectData() {
+    public String getInfo() {
+        return info;
     }
 
     public void setInfo(String info) {

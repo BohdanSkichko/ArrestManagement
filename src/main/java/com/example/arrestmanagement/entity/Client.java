@@ -31,10 +31,8 @@ public class Client {
     private String lastName;
 
 
-    @Column(name = "dul_type")
-    //todo make enum
-    //todo remove cyrillic abbreviations from whole project
-    private int dulType;
+    @Column(name = "id_type")
+    private int idType;
 
     @Column(name = "numSeries", length = 12)
     private String numSeries;

@@ -1,6 +1,6 @@
 package com.example.arrestmanagement.service.impl;
 
-import com.example.arrestmanagement.dto.ArrestDTO;
+import com.example.arrestmanagement.dto.ArrestDto;
 import com.example.arrestmanagement.dto.ArrestRequest;
 import com.example.arrestmanagement.dto.ArrestResponse;
 import com.example.arrestmanagement.entity.Arrest;
@@ -22,19 +22,19 @@ public class ArrestServiceImpl implements ArrestService {
 
     private final ArrestRepository arrestRepository;
 
-    @Override
-    public Arrest updateArrest(Arrest arrest) {
-        return arrestRepository.save(arrest);
+
+    public void updateArrest(Arrest arrest) {
+        arrestRepository.save(arrest);
     }
 
-    @Override
-    public Arrest saveArrest(Arrest arrest) {
-        return arrestRepository.save(arrest);
+
+    public void saveArrest(Arrest arrest) {
+        arrestRepository.save(arrest);
     }
 
-    @Override
+
     public Optional<Arrest> getArrestFromRequest(ArrestRequest arrestRequest) {
-        ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
+        ArrestDto arrestDTO = arrestRequest.getArrestDTO();
         Arrest arrest = new Arrest();
         arrest.setDocDate(arrestDTO.getDocDate());
         arrest.setDocNum(arrestDTO.getDocNum());
@@ -45,26 +45,25 @@ public class ArrestServiceImpl implements ArrestService {
     }
 
 
-    @Override
     public Optional<Arrest> findByClientAndByDocNum(Client client, ArrestRequest arrestRequest) {
-        ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
+        ArrestDto arrestDTO = arrestRequest.getArrestDTO();
         String docNum = arrestDTO.getDocNum();
         return arrestRepository.findArrestByClientAndDocNum(client, docNum);
     }
 
-    @Override
+
     public Optional<Arrest> findByClientAndByRefDocNum(Client client, ArrestRequest arrestRequest) {
-        ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
+        ArrestDto arrestDTO = arrestRequest.getArrestDTO();
         String refDocNum = arrestDTO.getRefDocNum();
         return arrestRepository.findArrestByClientAndDocNum(client, refDocNum);
     }
 
 
     @Override
-    public ArrestResponse editArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
-        ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
+    public void editArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
+        ArrestDto arrestDTO = arrestRequest.getArrestDTO();
         if (arrestDTO.getOperation() != OperationPropertiesEnum.EDIT_ARREST.getCode()) {
-            return arrestResponse;
+            return;
         }
         Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
         if (!clientsArrest.isPresent()) {
@@ -81,15 +80,14 @@ public class ArrestServiceImpl implements ArrestService {
             }
             arrestResponse.setId(arrest.getId());
         }
-        return arrestResponse;
 
     }
 
     @Override
-    public ArrestResponse cancelArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
-        ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
+    public void cancelArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
+        ArrestDto arrestDTO = arrestRequest.getArrestDTO();
         if (arrestDTO.getOperation() != OperationPropertiesEnum.CANCELED_ARREST.getCode()) {
-            return arrestResponse;
+            return;
         }
         Optional<Arrest> clientsArrest = findByClientAndByRefDocNum(client, arrestRequest);
         if (!clientsArrest.isPresent()) {
@@ -100,14 +98,13 @@ public class ArrestServiceImpl implements ArrestService {
         arrest.setStatus(Arrest.Status.CANCELED);
         updateArrest(arrest);
         arrestResponse.setId(arrest.getId());
-        return arrestResponse;
     }
 
     @Override
-    public ArrestResponse createArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
-        ArrestDTO arrestDTO = arrestRequest.getArrestDTO();
+    public void createArrest(Client client, ArrestRequest arrestRequest, ArrestResponse arrestResponse) {
+        ArrestDto arrestDTO = arrestRequest.getArrestDTO();
         if (arrestDTO.getOperation() != OperationPropertiesEnum.FIRST_OPERATION.getCode()) {
-            return arrestResponse;
+            return;
         }
         Optional<Arrest> findArrest = findByClientAndByDocNum(client, arrestRequest);
         if (findArrest.isPresent()) {
@@ -118,6 +115,5 @@ public class ArrestServiceImpl implements ArrestService {
         client.addArrestToClient(arrest);
         saveArrest(arrest);
         arrestResponse.setId(arrest.getId());
-        return arrestResponse;
     }
 }

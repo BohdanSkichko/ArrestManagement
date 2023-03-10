@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    Optional<Client> findClientByFirstNameAndLastNameAndDulTypeAndNumSeries(
+    Optional<Client> findClientByFirstNameAndLastNameAndIdTypeAndNumSeries(
             String firstName, String lastName, Integer dulType, String numSeries);
 
 

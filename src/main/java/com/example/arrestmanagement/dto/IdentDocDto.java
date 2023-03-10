@@ -16,7 +16,7 @@ import java.sql.Date;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class IdentDocDTO {
+public class IdentDocDto {
 
     @IdentDocTypeConstraint
     @JsonProperty("Type")

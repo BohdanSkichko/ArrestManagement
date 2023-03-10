@@ -20,17 +20,17 @@ public class ArrestRequest {
     @JsonProperty("RequestId")
     private String requestID;
 
-    @Size(max = 100, message = "max 100 symbols")
+    @Size(max = 100, message = "This field supports a maximum of 100 characters")
     @JsonProperty("LastName")
     private String lastname;
 
-    @Size(max = 100, message = "max 100 symbols")
+    @Size(max = 100, message = "This field supports a maximum of 100 characters")
     @JsonProperty("FirstName")
     private String firstName;
 
     @Valid
     @JsonProperty("IdentDoc")
-    private IdentDocDTO identDocDTO;
+    private IdentDocDto identDocDTO;
 
     @OrganCodeConstraint
     @JsonProperty("OrganCode")
@@ -38,5 +38,5 @@ public class ArrestRequest {
 
     @Valid
     @JsonProperty("Arrest")
-    private ArrestDTO arrestDTO;
+    private ArrestDto arrestDTO;
 }

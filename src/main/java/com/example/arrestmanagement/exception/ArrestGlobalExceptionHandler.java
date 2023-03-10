@@ -8,25 +8,25 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ArrestGlobalExceptionHandler {
     @ExceptionHandler
-    //todo remove or change to ResponseEntity<ArrestResponse>
-    public ResponseEntity<ArrestIncorrectData> handleException(
+    public ResponseEntity<ArrestResponse> handleException(
             NoSuchArrestException arrestException) {
-        ArrestIncorrectData data = new ArrestIncorrectData();
+        ArrestResponse data = new ArrestResponse();
         data.setInfo(arrestException.getMessage());
         return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<ArrestIncorrectData> handleException(
-            ArrestIncorrectException arrestException){
-        ArrestIncorrectData data = new ArrestIncorrectData();
+    public ResponseEntity<ArrestResponse> handleException(
+            ArrestIncorrectException arrestException) {
+        ArrestResponse data = new ArrestResponse();
         data.setInfo(arrestException.getMessage());
         return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler
-    public ResponseEntity<ArrestIncorrectData> handleException(
+    public ResponseEntity<ArrestResponse> handleException(
             Exception arrestException) {
-        ArrestIncorrectData data = new ArrestIncorrectData();
+        ArrestResponse data = new ArrestResponse();
         data.setInfo(arrestException.getMessage());
         return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
     }
